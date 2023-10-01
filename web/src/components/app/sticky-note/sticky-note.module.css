@@ -1,0 +1,23 @@
+.wrapper {
+  background: linear-gradient(145.37deg, rgba(0, 0, 0, 0.05) -8.75%, rgba(0, 0, 0, 0.01) 83.95%);
+  box-shadow: rgba(0, 0, 0, 0.03) 0 3px 20px -3px;
+}
+
+.line {
+}
+
+:global(.dark) .wrapper {
+  background: linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 5px 30px -5px;
+}
+
+:global(.dark) .line {
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(232, 232, 232, 0.2) 33.02%,
+    rgba(143, 143, 143, 0.67) 64.41%,
+    rgba(236, 72, 153, 0) 98.93%
+  );
+}
