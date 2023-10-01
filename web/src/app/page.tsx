@@ -4,13 +4,13 @@ import { AspectRatio } from '@/components/ui/aspect-ratio'
 export default function Home() {
   return (
     <main className={'min-h-screen'}>
-      <div className={'fixed top-4 right-4'}>
+      <div className={'fixed right-4 top-4'}>
         <ThemeSwitch />
       </div>
-      <div className={'container p-24 mx-auto'}>
+      <div className={'container mx-auto p-24'}>
         <div className={'grid grid-cols-3 gap-10'}>
           {[...new Array(12)].map((_, i) => (
-            <AspectRatio className={'bg-secondary rounded-lg'} ratio={16 / 9} key={i} />
+            <AspectRatio className={'rounded-lg bg-secondary'} key={i} ratio={16 / 9} />
           ))}
         </div>
       </div>
