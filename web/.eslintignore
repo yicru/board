@@ -1,2 +1,4 @@
 .next
+supabase/.branches
+supabase/.temp
 src/components/ui
