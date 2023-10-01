@@ -21,6 +21,6 @@
     }
   },
   "files": {
-    "ignore": [".next"]
+    "ignore": [".next", "node_modules", "src/components/ui"]
   }
 }
