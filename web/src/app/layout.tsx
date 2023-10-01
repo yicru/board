@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 
 import { ThemeSwitcher } from '@/components/app/theme-switcher'
 import { ThemeProvider } from '@/providers/theme-provider'
-import { Inter } from 'next/font/google'
+import { Lora } from 'next/font/google'
 
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const lola = Lora({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'board',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={'en'}>
-      <body className={inter.className}>
+      <body className={lola.className}>
         <ThemeProvider attribute={'class'} defaultTheme={'dark'} disableTransitionOnChange enableSystem>
           <header className={'fixed inset-x-0 z-10 flex justify-end p-4'}>
             <ThemeSwitcher />
