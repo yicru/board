@@ -33,6 +33,9 @@ export default function SignInPage() {
   const signInWithEmail = async (values: FormValues) => {
     const { error } = await supabase.auth.signInWithOtp({
       email: values.email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
     })
 
     if (error) {
@@ -44,9 +47,12 @@ export default function SignInPage() {
     }
   }
 
-  const signInWithGoogle = async () => {
+  const signInWithGitHub = async () => {
     await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+      provider: 'github',
     })
   }
 
@@ -59,9 +65,10 @@ export default function SignInPage() {
 
       <CardContent>
         <div className={'space-y-4'}>
-          <Button className={'w-full tracking-wide'} onClick={signInWithGoogle} size={'lg'} variant={'secondary'}>
-            <img alt={''} className={'mr-4 h-4 w-4'} src={'/google.svg'} />
-            Continue with Google
+          <Button className={'w-full tracking-wide'} onClick={signInWithGitHub} size={'lg'} variant={'secondary'}>
+            <img alt={''} className={'mr-4 block h-4 w-4 dark:hidden'} src={'/github.svg'} />
+            <img alt={''} className={'mr-4 hidden h-4 w-4 dark:block'} src={'/github-white.svg'} />
+            Continue with GitHub
           </Button>
         </div>
 
