@@ -30,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a
               className={'flex items-center gap-2 opacity-25 transition-opacity hover:opacity-100'}
               href={'https://github.com/yicru/board'}
+              rel={'noreferrer'}
               target={'_blank'}
             >
               <span className={'text-sm font-semibold'}>board</span>
