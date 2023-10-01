@@ -51,7 +51,7 @@ export default function SignInPage() {
   }
 
   return (
-    <Card className={'mx-auto w-full max-w-md bg-neutral-900/60 backdrop-blur'}>
+    <Card className={'mx-auto w-full max-w-md backdrop-blur dark:border-zinc-900 dark:bg-card/50'}>
       <CardHeader className={'gap-1'}>
         <CardTitle className={'tracking-wide'}>Sign in</CardTitle>
         <CardDescription className={'text-xs'}>to continue to board</CardDescription>
@@ -59,12 +59,7 @@ export default function SignInPage() {
 
       <CardContent>
         <div className={'space-y-4'}>
-          <Button
-            className={'w-full bg-neutral-900/50 tracking-wide'}
-            onClick={signInWithGoogle}
-            size={'lg'}
-            variant={'outline'}
-          >
+          <Button className={'w-full tracking-wide'} onClick={signInWithGoogle} size={'lg'} variant={'secondary'}>
             <img alt={''} className={'mr-4 h-4 w-4'} src={'/google.svg'} />
             Continue with Google
           </Button>
@@ -86,14 +81,14 @@ export default function SignInPage() {
                   <FormItem>
                     <FormLabel className={'text-xs'}>Email</FormLabel>
                     <FormControl>
-                      <Input required type={'email'} {...field} />
+                      <Input className={'dark:bg-input'} required type={'email'} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-            <Button className={'mt-6 w-full tracking-wide'} type={'submit'} variant={'outline'}>
+            <Button className={'mt-6 w-full tracking-wide'} type={'submit'} variant={'secondary'}>
               Continue with OTP
             </Button>
           </form>
