@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "npm run lint:eslint && npm run lint:prettier && npm run lint:tsc",
+    "lint:eslint": "eslint --ext .js,.jsx,.mjs,.ts,.tsx --max-warnings 0 .",
+    "lint:prettier": "prettier --check .",
+    "lint:tsc": "tsc --pretty --noEmit",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "format:eslint": "npm run lint:eslint -- --fix",
+    "format:prettier": "npm run lint:prettier -- --write"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
@@ -52,14 +58,21 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
     "@types/node": "latest",
+    "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "autoprefixer": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
+    "concurrently": "^8.2.1",
     "eslint": "latest",
-    "eslint-config-next": "latest"
+    "eslint-config-next": "latest",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-perfectionist": "^2.1.0",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "postcss": "latest",
+    "prettier": "^3.0.3",
+    "tailwindcss": "latest",
+    "typescript": "latest"
   }
 }
