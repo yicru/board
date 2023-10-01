@@ -1,6 +1,6 @@
 .wrapper {
-  background: linear-gradient(145.37deg, rgba(0, 0, 0, 0.05) -8.75%, rgba(0, 0, 0, 0.01) 83.95%);
-  box-shadow: rgba(0, 0, 0, 0.03) 0 3px 20px -3px;
+  background: rgba(0, 0, 0, 0.038);
+  @apply shadow;
 }
 
 .line {
