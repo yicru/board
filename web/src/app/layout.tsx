@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { ThemeSwitcher } from '@/components/app/theme-switcher'
+import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { Lora } from 'next/font/google'
 
@@ -40,6 +41,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className={'fixed inset-0 -z-10'}>
             <img alt={''} className={'h-full w-full object-cover object-center'} src={'/blob.webp'} />
           </div>
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
