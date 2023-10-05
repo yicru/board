@@ -1,26 +1,28 @@
-import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { cn } from '@/lib/utils'
 import { ReactNode } from 'react'
 
-import styles from './sticky-note.module.css'
-
 type Props = {
   children: ReactNode
+  className?: string
+  withShine?: boolean
 }
 
 export function StickyNote(props: Props) {
+  const { children, className, withShine } = props
+
   return (
-    <AspectRatio
+    <div
       className={cn(
-        'relative cursor-pointer rounded-lg border backdrop-blur-md transition',
+        'cursor-pointer rounded-lg border transition overflow-hidden',
         'hover:brightness-95 dark:hover:brightness-125',
-        styles.wrapper,
+        'glass',
+        {
+          'with-glass-shine': withShine,
+        },
+        className,
       )}
-      ratio={16 / 9}
     >
-      <div className={cn('absolute left-0 top-0 h-px w-[50%]', styles.line)} />
-      <div className={cn('absolute right-0 bottom-0 h-px w-[50%]', styles.line)} />
-      <div>{props.children}</div>
-    </AspectRatio>
+      <div>{children}</div>
+    </div>
   )
 }

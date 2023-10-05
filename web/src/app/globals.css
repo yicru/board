@@ -74,3 +74,47 @@
     @apply bg-background text-foreground;
   }
 }
+
+.glass {
+  background: rgba(0, 0, 0, 0.038);
+  @apply backdrop-blur-md shadow;
+}
+
+.dark .glass {
+  background: linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 5px 30px -5px;
+}
+
+.dark .glass.with-glass-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(232, 232, 232, 0.2) 33.02%,
+    rgba(143, 143, 143, 0.67) 64.41%,
+    rgba(236, 72, 153, 0) 98.93%
+  );
+}
+
+.dark .glass.with-glass-shine::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(232, 232, 232, 0.2) 33.02%,
+    rgba(143, 143, 143, 0.67) 64.41%,
+    rgba(236, 72, 153, 0) 98.93%
+  );
+}

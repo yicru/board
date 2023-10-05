@@ -13,7 +13,7 @@ export default async function Home() {
     <div>
       <div className={'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'}>
         {[...new Array(12)].map((_, i) => (
-          <StickyNote key={`sticky-note-${i}`}>
+          <StickyNote key={`sticky-note-${i}`} withShine>
             <div className={'p-4'}>
               <p className={'text-zinc-600 dark:text-foreground'}>Lorem ipsum</p>
               <Separator className={'my-2 dark:bg-zinc-700'} />
