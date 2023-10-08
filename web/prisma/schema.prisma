@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  email String @unique
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  Board Board?
+
+  @@map("users")
+}
+
+model Board {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @map("user_id") @db.Uuid
+
+  uid String @unique
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  Upload Upload[]
+  Post   Post[]
+
+  @@map("boards")
+}
+
+model Upload {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  board   Board  @relation(fields: [boardId], references: [id])
+  boardId String @map("board_id") @db.Uuid
+
+  name String
+  path String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  Post Post?
+}
+
+model Post {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  board    Board  @relation(fields: [boardId], references: [id])
+  boardId  String @map("board_id") @db.Uuid
+  upload   Upload @relation(fields: [uploadId], references: [id])
+  uploadId String @unique @map("upload_id") @db.Uuid
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("posts")
+}
