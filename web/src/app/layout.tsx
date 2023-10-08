@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
-import { ThemeSwitcher } from '@/components/app/theme-switcher'
-import { Toaster } from '@/components/ui/toaster'
-import { ThemeProvider } from '@/providers/theme-provider'
+import { ThemeSwitcher } from '@/client/components/app/theme-switcher'
+import { Toaster } from '@/client/components/ui/toaster'
+import { ThemeProvider } from '@/client/providers/theme-provider'
 import { Inter } from 'next/font/google'
 
 import './globals.css'

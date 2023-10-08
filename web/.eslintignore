@@ -1,4 +1,4 @@
 .next
 supabase/.branches
 supabase/.temp
-src/components/ui
+src/client/components/ui
