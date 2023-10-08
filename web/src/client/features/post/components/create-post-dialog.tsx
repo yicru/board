@@ -1,18 +1,47 @@
 'use client'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/client/components/ui/dialog'
+import { useToast } from '@/client/components/ui/use-toast'
 import { FilePicker } from '@/client/features/file/components/file-picker'
+import { client } from '@/client/lib/client'
 import { cn } from '@/client/lib/utils'
+import { Board } from '@prisma/client'
 import { FileCodeIcon } from 'lucide-react'
-import { ReactElement } from 'react'
+import { useRouter } from 'next/navigation'
+import { ReactElement, useState } from 'react'
 
 type Props = {
+  board: Board
   trigger: ReactElement
 }
 
 export function CreatePostDialog(props: Props) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const router = useRouter()
+  const { toast } = useToast()
+
+  const onPickedFile = async (file: File) => {
+    const result = await client.api.boards[':id'].posts.$post({
+      form: { file },
+      param: { id: props.board.uid },
+    })
+
+    if (!result.ok) {
+      const error = await result.text()
+      toast({
+        description: error,
+        title: 'Failed to create post',
+      })
+      return
+    }
+
+    setIsOpen(false)
+    router.refresh()
+  }
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={setIsOpen} open={isOpen}>
       <DialogTrigger asChild>{props.trigger}</DialogTrigger>
       <DialogContent className={'glass'}>
         <DialogHeader>
@@ -24,7 +53,7 @@ export function CreatePostDialog(props: Props) {
               'flex items-center gap-4 rounded-lg px-4 py-3 cursor-pointer',
               'bg-gradient-to-r from-pink-300/20 via-purple-300/20 to-indigo-400/20 border-2 border-dashed border-purple-300/50',
             )}
-            onChange={(v) => console.log(v)}
+            onChange={onPickedFile}
           >
             <FileCodeIcon className={'h-6 w-6 text-purple-400 dark:text-purple-200'} />
             <div>

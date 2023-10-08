@@ -16,6 +16,7 @@
     "prisma": "prisma"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.1.9",
     "@hookform/resolvers": "^3.3.1",
     "@prisma/client": "^5.4.1",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -55,6 +56,7 @@
     "date-fns": "^2.30.0",
     "hono": "^3.7.5",
     "lucide-react": "^0.284.0",
+    "marked": "^9.1.0",
     "next": "latest",
     "next-themes": "^0.2.1",
     "react": "latest",
@@ -65,6 +67,7 @@
     "swr": "^2.2.4",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "ts-pattern": "^5.0.5",
     "zod": "^3.22.2"
   },
   "devDependencies": {

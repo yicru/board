@@ -2,25 +2,39 @@ import { PageSkeleton } from '@/client/components/app/page-skeleton'
 import { StickyNote } from '@/client/components/app/sticky-note'
 import { Separator } from '@/client/components/ui/separator'
 import { CreatePostDialog } from '@/client/features/post/components/create-post-dialog'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createServerComponentClient } from '@/client/lib/sc-client'
 import { FileIcon } from 'lucide-react'
-import { cookies } from 'next/headers'
+import { notFound } from 'next/navigation'
 
-export const dynamic = 'force-dynamic'
+export default async function Home({ params }: { params: { boardId: string } }) {
+  const client = createServerComponentClient()
 
-export default async function Home({ params }: { params: { pid: string } }) {
-  const supabase = createServerComponentClient({ cookies })
-  const { data } = await supabase.auth.getUser()
+  const { data: board, isOwner } = await client.api.boards[':id']
+    .$get({
+      param: { id: params.boardId },
+    })
+    .then((res) => res.json())
+
+  const { data: posts } = await client.api.boards[':id'].posts
+    .$get({
+      param: { id: params.boardId },
+    })
+    .then((res) => res.json())
+
+  if (!board) {
+    return notFound()
+  }
 
   return (
     <div className={'space-y-10'}>
       <div>
-        <h1 className={'font-serif text-xl font-semibold'}>{params.pid}&apos;s board</h1>
+        <h1 className={'font-serif text-xl font-semibold'}>{board.uid}&apos;s board</h1>
       </div>
 
-      {data.user && (
+      {isOwner && (
         <div className={'grid grid-cols-1 gap-6 border-b pb-10 sm:grid-cols-2'}>
           <CreatePostDialog
+            board={board}
             trigger={
               <StickyNote>
                 <div className={'relative p-6'}>
@@ -40,6 +54,19 @@ export default async function Home({ params }: { params: { pid: string } }) {
           />
         </div>
       )}
+
+      <div className={'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'}>
+        {posts.map((post) => (
+          <StickyNote key={post.id} withShine>
+            <div className={'p-4'}>
+              <div
+                className={'line-clamp-4 text-sm leading-relaxed tracking-wide text-zinc-400'}
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            </div>
+          </StickyNote>
+        ))}
+      </div>
 
       <div className={'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'}>
         {[...new Array(12)].map((_, i) => (
