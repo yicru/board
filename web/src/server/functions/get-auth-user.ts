@@ -13,19 +13,9 @@ export const getAuthUser = async (): Promise<User | null> => {
     return null
   }
 
-  try {
-    return await prisma.user.upsert({
-      create: {
-        email: supabaseUser.email,
-      },
-      update: {},
-      where: {
-        email: supabaseUser.email,
-      },
-    })
-  } catch (e) {
-    return await prisma.user.findUnique({
-      where: { email: supabaseUser.email },
-    })
-  }
+  return prisma.user.findUnique({
+    where: {
+      email: supabaseUser.email,
+    },
+  })
 }
