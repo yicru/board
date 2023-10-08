@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
 
     await prisma.user.upsert({
       create: {
-        Board: {
+        board: {
           create: {
             uid: boardUid,
           },

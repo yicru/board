@@ -18,7 +18,7 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
-  Board Board?
+  board Board?
 
   @@map("users")
 }
@@ -34,8 +34,8 @@ model Board {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
-  Upload Upload[]
-  Post   Post[]
+  uploads Upload[]
+  posts   Post[]
 
   @@map("boards")
 }
@@ -52,7 +52,7 @@ model Upload {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
-  Post Post?
+  post Post?
 
   @@map("uploads")
 }
