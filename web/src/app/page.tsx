@@ -1,6 +1,9 @@
+import { PageSkeleton } from '@/components/app/page-skeleton'
 import { StickyNote } from '@/components/app/sticky-note'
 import { Separator } from '@/components/ui/separator'
+import { CreatePostDialog } from '@/features/post/components/create-post-dialog'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { FileIcon } from 'lucide-react'
 import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
@@ -10,7 +13,38 @@ export default async function Home() {
   const { data } = await supabase.auth.getUser()
 
   return (
-    <div>
+    <div className={'space-y-10'}>
+      {data.user && (
+        <>
+          <div>
+            <p className={'text-xl font-medium'}>Hi, {data.user.user_metadata.user_name} 👋</p>
+          </div>
+
+          <div className={'grid grid-cols-1 gap-6 sm:grid-cols-2'}>
+            <CreatePostDialog
+              trigger={
+                <StickyNote>
+                  <div className={'relative p-6'}>
+                    <FileIcon className={'h-5 w-5 text-zinc-600 dark:text-foreground'} />
+                    <p className={'mt-3 font-medium text-zinc-600 dark:text-foreground'}>Start from a file</p>
+                    <p
+                      className={
+                        'mt-0.5 line-clamp-4 text-sm leading-relaxed tracking-wide text-zinc-600 dark:text-zinc-400'
+                      }
+                    >
+                      Import content from a file to post notes on a board
+                    </p>
+                    <PageSkeleton className={'absolute -bottom-2 -right-2 -z-10 h-24 w-40'} />
+                  </div>
+                </StickyNote>
+              }
+            />
+          </div>
+
+          <Separator />
+        </>
+      )}
+
       <div className={'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'}>
         {[...new Array(12)].map((_, i) => (
           <StickyNote key={`sticky-note-${i}`} withShine>
@@ -33,12 +67,6 @@ export default async function Home() {
           </StickyNote>
         ))}
       </div>
-
-      {data.user && (
-        <div className={'fixed inset-x-0 bottom-0 grid place-content-center p-4'}>
-          <p className={'text-xs font-medium'}>Hi, {data.user.user_metadata.user_name} 👋</p>
-        </div>
-      )}
     </div>
   )
 }
