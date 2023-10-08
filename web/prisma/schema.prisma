@@ -53,6 +53,8 @@ model Upload {
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   Post Post?
+
+  @@map("uploads")
 }
 
 model Post {
