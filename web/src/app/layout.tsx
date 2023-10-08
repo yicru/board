@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { SignOutButton } from '@/client/components/app/sign-out-button'
 import { ThemeSwitcher } from '@/client/components/app/theme-switcher'
 import { Toaster } from '@/client/components/ui/toaster'
 import { ThemeProvider } from '@/client/providers/theme-provider'
@@ -18,7 +19,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang={'en'}>
       <body className={inter.className}>
         <ThemeProvider attribute={'class'} defaultTheme={'dark'} disableTransitionOnChange enableSystem>
-          <header className={'fixed inset-x-0 z-10 flex justify-end p-4'}>
+          <header className={'fixed inset-x-0 z-10 flex justify-end gap-2 p-4'}>
+            <SignOutButton />
             <ThemeSwitcher />
           </header>
 
