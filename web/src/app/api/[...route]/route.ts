@@ -1,5 +1,6 @@
 import { getAuthUser } from '@/server/functions/get-auth-user'
 import { prisma } from '@/server/lib/prisma'
+import { UnauthenticatedError } from '@/shared/error/unauthenticated-error'
 import { env } from '@/shared/lib/env'
 import { zValidator } from '@hono/zod-validator'
 import { createClient } from '@supabase/supabase-js'
@@ -85,6 +86,8 @@ const route = app
       }),
     ),
     async (c) => {
+      const authUser = await getAuthUser()
+
       const param = c.req.valid('param')
       const form = c.req.valid('form')
 
@@ -93,6 +96,10 @@ const route = app
           uid: param.boardId,
         },
       })
+
+      if (board.userId !== authUser?.id) {
+        throw new UnauthenticatedError()
+      }
 
       const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY)
 
@@ -188,6 +195,8 @@ const route = app
       }),
     ),
     async (c) => {
+      const authUser = await getAuthUser()
+
       const param = c.req.valid('param')
       const json = c.req.valid('json')
 
@@ -196,6 +205,10 @@ const route = app
           uid: param.boardId,
         },
       })
+
+      if (board.userId !== authUser?.id) {
+        throw new UnauthenticatedError()
+      }
 
       const post = await prisma.post.update({
         data: {
