@@ -13,11 +13,6 @@ import { z } from 'zod'
 const app = new Hono().basePath('/api')
 
 const route = app
-  .get('/hello', async (c) => {
-    return c.jsonT({
-      data: 'Hello World',
-    })
-  })
   .get('/me', async (c) => {
     const authUser = await getAuthUser()
     return c.jsonT({
