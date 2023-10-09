@@ -37,9 +37,6 @@ const route = app
       const param = c.req.valid('param')
 
       const board = await prisma.board.findUnique({
-        include: {
-          posts: true,
-        },
         where: {
           uid: param.boardId,
         },
@@ -134,6 +131,8 @@ const route = app
             create: {
               boardId: board.id,
               content: content,
+              summary: '',
+              title: '',
             },
           },
         },
@@ -168,6 +167,48 @@ const route = app
       const post = await prisma.post.findFirst({
         where: {
           boardId: board?.id,
+          id: param.postId,
+        },
+      })
+
+      return c.jsonT({
+        data: post,
+      })
+    },
+  )
+  .post(
+    '/boards/:boardId/posts/:postId/meta',
+    zValidator(
+      'param',
+      z.object({
+        boardId: z.string().min(1),
+        postId: z.string().min(1),
+      }),
+    ),
+    zValidator(
+      'json',
+      z.object({
+        summary: z.string(),
+        title: z.string(),
+      }),
+    ),
+    async (c) => {
+      const param = c.req.valid('param')
+      const json = c.req.valid('json')
+
+      const board = await prisma.board.findUniqueOrThrow({
+        where: {
+          uid: param.boardId,
+        },
+      })
+
+      const post = await prisma.post.update({
+        data: {
+          summary: json.summary,
+          title: json.title,
+        },
+        where: {
+          boardId: board.id,
           id: param.postId,
         },
       })

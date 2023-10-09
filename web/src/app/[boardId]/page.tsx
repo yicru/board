@@ -57,9 +57,18 @@ export default async function Home({ params }: { params: { boardId: string } }) 
         {posts.map((post) => (
           <Link href={`/${params.boardId}/${post.id}`} key={post.id}>
             <StickyNote withShine>
-              <div className={'p-4'}>
-                <p className={'line-clamp-4 text-sm leading-relaxed tracking-wide text-zinc-400'}>
-                  {convert(sanitize(post.content))}
+              <div className={'min-h-[147px] p-4'}>
+                {post.title && (
+                  <p
+                    className={
+                      'mb-2 border-b pb-2 text-sm font-medium text-zinc-600 dark:border-zinc-700 dark:text-foreground'
+                    }
+                  >
+                    {post.title}
+                  </p>
+                )}
+                <p className={'line-clamp-4 text-xs leading-relaxed tracking-wide text-zinc-400'}>
+                  {post.summary ? post.summary : convert(sanitize(post.content))}
                 </p>
               </div>
             </StickyNote>

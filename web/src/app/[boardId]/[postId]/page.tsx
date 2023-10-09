@@ -1,4 +1,6 @@
+import { Separator } from '@/client/components/ui/separator'
 import { ArticlePost } from '@/client/features/post/components/article-post'
+import UpdatePostMetaForm from '@/client/features/post/components/update-post-meta-form'
 import { createServerComponentClient } from '@/client/lib/sc-client'
 import { ChevronLeftIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
@@ -7,13 +9,19 @@ import { notFound } from 'next/navigation'
 export default async function PostPage({ params }: { params: { boardId: string; postId: string } }) {
   const client = createServerComponentClient()
 
+  const { data: board, isOwner } = await client.api.boards[':boardId']
+    .$get({
+      param: { boardId: params.boardId },
+    })
+    .then((res) => res.json())
+
   const { data: post } = await client.api.boards[':boardId'].posts[':postId']
     .$get({
       param: { boardId: params.boardId, postId: params.postId },
     })
     .then((res) => res.json())
 
-  if (!post) {
+  if (!board || !post) {
     return notFound()
   }
 
@@ -25,7 +33,13 @@ export default async function PostPage({ params }: { params: { boardId: string; 
           <span className={'text-sm font-medium'}>Back to board</span>
         </Link>
       </div>
-      <div>
+      <div className={'space-y-10'}>
+        {isOwner && (
+          <>
+            <UpdatePostMetaForm board={board} key={post.updatedAt.toString()} post={post} />
+            <Separator />
+          </>
+        )}
         <ArticlePost post={post} />
       </div>
     </div>

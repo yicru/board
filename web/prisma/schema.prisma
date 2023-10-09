@@ -65,6 +65,8 @@ model Post {
   upload   Upload @relation(fields: [uploadId], references: [id])
   uploadId String @unique @map("upload_id") @db.Uuid
 
+  title   String
+  summary String
   content String @db.Text
 
   createdAt DateTime @default(now()) @map("created_at")
