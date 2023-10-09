@@ -25,11 +25,11 @@ const route = app
     })
   })
   .get(
-    '/boards/:id',
+    '/boards/:boardId',
     zValidator(
       'param',
       z.object({
-        id: z.string().min(1),
+        boardId: z.string().min(1),
       }),
     ),
     async (c) => {
@@ -41,7 +41,7 @@ const route = app
           posts: true,
         },
         where: {
-          uid: param.id,
+          uid: param.boardId,
         },
       })
 
@@ -52,11 +52,11 @@ const route = app
     },
   )
   .get(
-    '/boards/:id/posts',
+    '/boards/:boardId/posts',
     zValidator(
       'param',
       z.object({
-        id: z.string().min(1),
+        boardId: z.string().min(1),
       }),
     ),
     async (c) => {
@@ -68,7 +68,7 @@ const route = app
         },
         where: {
           board: {
-            uid: param.id,
+            uid: param.boardId,
           },
         },
       })
@@ -79,11 +79,11 @@ const route = app
     },
   )
   .post(
-    '/boards/:id/posts',
+    '/boards/:boardId/posts',
     zValidator(
       'param',
       z.object({
-        id: z.string().min(1),
+        boardId: z.string().min(1),
       }),
     ),
     zValidator(
@@ -98,7 +98,7 @@ const route = app
 
       const board = await prisma.board.findUniqueOrThrow({
         where: {
-          uid: param.id,
+          uid: param.boardId,
         },
       })
 
@@ -144,6 +144,36 @@ const route = app
 
       return c.jsonT({
         data: upload.post,
+      })
+    },
+  )
+  .get(
+    '/boards/:boardId/posts/:postId',
+    zValidator(
+      'param',
+      z.object({
+        boardId: z.string().min(1),
+        postId: z.string().min(1),
+      }),
+    ),
+    async (c) => {
+      const param = c.req.valid('param')
+
+      const board = await prisma.board.findFirst({
+        where: {
+          uid: param.boardId,
+        },
+      })
+
+      const post = await prisma.post.findFirst({
+        where: {
+          boardId: board?.id,
+          id: param.postId,
+        },
+      })
+
+      return c.jsonT({
+        data: post,
       })
     },
   )

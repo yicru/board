@@ -13,7 +13,7 @@ export function StickyNote(props: Props) {
   return (
     <div
       className={cn(
-        'cursor-pointer rounded-lg border transition overflow-hidden',
+        'rounded-lg border transition overflow-hidden',
         'hover:brightness-95 dark:hover:brightness-125',
         'glass',
         {

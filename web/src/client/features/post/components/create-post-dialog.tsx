@@ -22,9 +22,9 @@ export function CreatePostDialog(props: Props) {
   const { toast } = useToast()
 
   const onPickedFile = async (file: File) => {
-    const result = await client.api.boards[':id'].posts.$post({
+    const result = await client.api.boards[':boardId'].posts.$post({
       form: { file },
-      param: { id: props.board.uid },
+      param: { boardId: props.board.uid },
     })
 
     if (!result.ok) {
