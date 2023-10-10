@@ -71,6 +71,8 @@
     @apply border-border;
   }
   body {
+    height: 100vh;
+    height: 100dvh;
     @apply bg-background text-foreground;
   }
 }
