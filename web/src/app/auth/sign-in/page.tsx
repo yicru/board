@@ -45,6 +45,11 @@ export default function SignInPage() {
       })
       return
     }
+
+    toast({
+      description: 'Check your email for the sign in link',
+      title: 'Email sent',
+    })
   }
 
   const signInWithGitHub = async () => {
