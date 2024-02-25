@@ -32,6 +32,6 @@
     }
   },
   "files": {
-    "ignore": ["build"]
+    "ignore": ["build", "app/components/ui"]
   }
 }
