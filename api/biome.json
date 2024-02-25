@@ -32,6 +32,6 @@
     }
   },
   "files": {
-    "ignore": [".wrangler"]
+    "ignore": [".wrangler", "src/db/types.ts"]
   }
 }

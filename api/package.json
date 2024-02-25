@@ -4,14 +4,20 @@
     "deploy": "wrangler deploy --minify src/index.ts",
     "lint": "biome check .",
     "format": "biome check --apply .",
-    "format:force": "biome check --apply-unsafe ."
+    "format:force": "biome check --apply-unsafe .",
+    "prisma": "dotenv -e .dev.vars -- prisma"
   },
   "dependencies": {
-    "hono": "^4.0.6"
+    "hono": "^4.0.6",
+    "kysely": "^0.27.2",
+    "kysely-postgres-js": "^2.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",
     "@cloudflare/workers-types": "^4.20240208.0",
+    "dotenv-cli": "^7.3.0",
+    "prisma": "^5.10.2",
+    "prisma-kysely": "^1.8.0",
     "wrangler": "^3.25.0"
   }
 }
