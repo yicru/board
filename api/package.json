@@ -1,12 +1,16 @@
 {
   "scripts": {
     "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "lint": "biome check .",
+    "format": "biome check --apply .",
+    "format:force": "biome check --apply-unsafe ."
   },
   "dependencies": {
     "hono": "^4.0.6"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.5.3",
     "@cloudflare/workers-types": "^4.20240208.0",
     "wrangler": "^3.25.0"
   }
